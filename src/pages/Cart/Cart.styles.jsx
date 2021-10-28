@@ -6,6 +6,25 @@ export const Wrapper = styled.div`
 	padding: 20px;
 
 	${mobile({ padding: '20px 10px' })}
+
+	.paystack-button {
+		height: 40px;
+		padding: 5px 10px;
+		border: 1px solid orangered;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 600;
+		color: orangered;
+		background-color: white;
+		width: 100%;
+
+		transition: ease all 0.3s;
+
+		&:hover {
+			background-color: orangered;
+			color: white;
+		}
+	}
 `
 export const Title = styled.h1`
 	font-weight: 300;
@@ -145,22 +164,5 @@ export const SummaryItemText = styled.span`
 export const SummaryItemPrice = styled.span`
 	font-weight: ${(props) => (props.type === 'total' ? 800 : 100)};
 `
-export const Button = styled.button`
-	height: 40px;
-	padding: 5px 10px;
-	border: 1px solid orangered;
-	border-radius: 10px;
-	font-size: 16px;
-	font-weight: 600;
-	color: orangered;
-	background-color: white;
-	width: 100%;
 
-	transition: ease all 0.3s;
-
-	&:hover {
-		background-color: orangered;
-		color: white;
-	}
-`
 // export const Container = styled.div``

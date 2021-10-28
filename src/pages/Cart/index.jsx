@@ -1,8 +1,10 @@
 import { Add, Remove } from '@mui/icons-material'
-import React from 'react'
+import React, { useState } from 'react'
 import Announcement from '../../components/Announcement'
 import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
+import { PaystackButton } from 'react-paystack'
+import { useHistory } from 'react-router'
 
 //styles
 import {
@@ -29,7 +31,6 @@ import {
 	Product,
 	ProductPrice,
 	Hr,
-	Button,
 	SummaryTitle,
 	SummaryItem,
 	SummaryItemText,
@@ -37,6 +38,31 @@ import {
 } from './Cart.styles'
 
 const Cart = () => {
+	const history = useHistory()
+	const publicKey = process.env.REACT_APP_PAYSTACK_PUBLIC_KEY
+
+	const amount = 5000 * 100
+	const [email, setEmail] = useState('mezie.cjo@gmail.com')
+	const [name, setName] = useState('')
+	const [phone, setPhone] = useState('')
+
+	const componentProps = {
+		email,
+		amount,
+		metadata: {
+			name,
+			phone,
+		},
+		publicKey,
+		text: 'CHECKOUT NOW',
+		onSuccess: () => {
+			setEmail('')
+			setName('')
+			setPhone('')
+			history.push('/')
+		},
+		onClose: () => console.log("Wait! You need this oil, don't go!!!!"),
+	}
 	return (
 		<Container>
 			<Navbar />
@@ -49,7 +75,14 @@ const Cart = () => {
 						<TopText>Shopping Bag (2)</TopText>
 						<TopText>Your Wishlist(0)</TopText>
 					</TopTexts>
-					<TopButton type='filled'>CHECKOUT NOW</TopButton>
+					{/* <TopButton type='filled' className='TopButton'>
+						CHECKOUT NOW
+					</TopButton> */}
+
+					{/* <PaystackButton
+						className='top-button'
+						{...componentProps}
+					/> */}
 				</Top>
 				<Bottom>
 					<Info>
@@ -129,7 +162,10 @@ const Cart = () => {
 								$ 80
 							</SummaryItemPrice>
 						</SummaryItem>
-						<Button>CHECKOUT NOW</Button>
+						<PaystackButton
+							className='paystack-button'
+							{...componentProps}
+						/>
 					</Summary>
 				</Bottom>
 			</Wrapper>
